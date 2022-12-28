@@ -1,0 +1,22 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".txt" #>
+
+using System;
+using ConnectAndSell.DataAccessStandard.Common.DataContract;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+
+
+namespace <#=DataContextGeneratorParams.ProjectDataContractNameSpace#>
+{
+
+[DataContract]
+public enum <#=EnumName#> : <#=EnumType#>
+{
+  <#=EnumMemberList#>
+}
+}

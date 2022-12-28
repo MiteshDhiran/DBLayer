@@ -1,0 +1,173 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ApplicationIcon />
+    <Company>ConnectAndSell</Company>
+    <Copyright>ConnectAndSell</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputType>Exe</OutputType>
+    <StartupObject />
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>MDRXDalGenerator</ToolCommandName>
+    <RootNamespace>ConnectAndSell.Dal.Generator</RootNamespace>
+    <AssemblyName>ConnectAndSell.Dal.Generator</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <version>0.1.0</version>
+	  <PackageOutputPath>$(OutDir)</PackageOutputPath>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <OutputPath>..\..\..\bin</OutputPath>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="Program_1.cs" />
+    <Compile Remove="Program_2.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.7.82" />
+    <PackageReference Include="System.CodeDom" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConnectAndSell.Dal.Generator.Common\ConnectAndSell.Dal.Generator.Common.csproj" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Templates\AssociateRootEntityTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>AssociateRootEntityTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\BulkInsertAppTableTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>BulkInsertAppTableTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\BulkInsertAppTableTemplate.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BulkInsertAppTableTemplate.tt</DependentUpon>
+    </None>
+    <None Update="Templates\ContextTablePropertyTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ContextTablePropertyTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\DataContextClassTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DataContextClassTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\DataContextTableConfiguration.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DataContextTableConfiguration.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\DataContractClassTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DataContractClassTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\DataContractClassWithPrimaryKeyPropertyOnly.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DataContractClassWithPrimaryKeyPropertyOnly.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\EnumTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>EnumTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\RelationConfiguration.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>RelationConfiguration.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\SampleTextTemplate1.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SampleTextTemplate1.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\SPWrapperClassTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SPWrapperClassTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\SPWrapperClassTemplate.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SPWrapperClassTemplate.tt</DependentUpon>
+    </None>
+    <None Update="Templates\TableLookupResolveDataContract.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TableLookupResolveDataContract.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Templates\AssociateRootEntityTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AssociateRootEntityTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\BulkInsertAppTableTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BulkInsertAppTableTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\ContextTablePropertyTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ContextTablePropertyTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\DataContextClassTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataContextClassTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\DataContextTableConfiguration.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataContextTableConfiguration.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\DataContractClassTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataContractClassTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\DataContractClassWithPrimaryKeyPropertyOnly.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataContractClassWithPrimaryKeyPropertyOnly.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\EnumTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EnumTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\RelationConfiguration.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RelationConfiguration.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\SampleTextTemplate1.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SampleTextTemplate1.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\SPWrapperClassTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SPWrapperClassTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\TableLookupResolveDataContract.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TableLookupResolveDataContract.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

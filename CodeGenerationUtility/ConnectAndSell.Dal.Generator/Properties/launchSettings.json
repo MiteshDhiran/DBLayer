@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ConnectAndSell.Dal.Generator": {
+      "commandName": "Project",
+      "commandLineArgs": "--projectName \"DemoApp\" --projectNameSpace \"DemoApp\" --outputFolderPath \"C:\\repos\\dal\\Test\\DemoAppConfig\\DemoAppArtifacts\" --configFolderPath \"C:\\repos\\dal\\Test\\DemoAppConfig\" --connectionString \"Data Source=.;Initial Catalog=CDALDB;Integrated Security=True;\""
+    }
+  }
+}

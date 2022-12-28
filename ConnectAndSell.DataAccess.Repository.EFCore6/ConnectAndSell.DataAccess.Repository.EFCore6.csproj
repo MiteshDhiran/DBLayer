@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>ConnectAndSell.EFCore6</AssemblyName>
+    <RootNamespace>ConnectAndSell.EFCore6</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <version>0.1.0</version>
+    <PackageOutputPath>$(OutDir)</PackageOutputPath>
+    <Company>ConnectAndSell</Company>
+    <Copyright>ConnectAndSell</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\bin</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\bin</OutputPath>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Dapper.StrongName" Version="2.0.30" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConnectAndSell.DataAccessStandard.Common.DataContract\ConnectAndSell.DataAccessStandard.Common.DataContract.csproj" />
+    <ProjectReference Include="..\ConnectAndSell.DataAccessStandard.Server.Common\ConnectAndSell.DataAccessStandard.Server.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ConnectAndSell.DataAccess.Repository.EFCore1\DapperHelper.cs">
+      <Link>DapperHelper.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+</Project>

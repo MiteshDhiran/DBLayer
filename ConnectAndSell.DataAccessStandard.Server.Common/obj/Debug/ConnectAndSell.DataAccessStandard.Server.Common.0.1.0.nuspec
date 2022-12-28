@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ConnectAndSell.DataAccessStandard.Server.Common</id>
+    <version>0.1.0</version>
+    <authors>ConnectAndSell.DataAccessStandard.Server.Common</authors>
+    <description>Package Description</description>
+    <copyright>ConnectAndSell</copyright>
+    <dependencies>
+      <group targetFramework=".NETFramework4.8">
+        <dependency id="ConnectAndSell.DataAccessStandard.Common.DataContract" version="0.1.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Data.SqlClient" version="2.1.0" exclude="Build,Analyzers" />
+        <dependency id="Polly" version="7.1.1" exclude="Build,Analyzers" />
+        <dependency id="System.Text.RegularExpressions" version="4.3.1" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="ConnectAndSell.DataAccessStandard.Common.DataContract" version="0.1.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Data.SqlClient" version="2.1.0" exclude="Build,Analyzers" />
+        <dependency id="Polly" version="7.1.1" exclude="Build,Analyzers" />
+        <dependency id="System.Text.RegularExpressions" version="4.3.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Text.RegularExpressions" targetFramework=".NETFramework4.8" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="C:\repos\bin\net48\ConnectAndSell.DataAccessStandard.Server.Common.dll" target="lib\net48\ConnectAndSell.DataAccessStandard.Server.Common.dll" />
+    <file src="C:\repos\bin\netstandard2.0\ConnectAndSell.DataAccessStandard.Server.Common.dll" target="lib\netstandard2.0\ConnectAndSell.DataAccessStandard.Server.Common.dll" />
+  </files>
+</package>

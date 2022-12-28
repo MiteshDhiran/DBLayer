@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <RootNamespace>MDRX.DataAccess.Repository.EFCore1</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net48</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <version>0.1.0</version>
+    <PackageOutputPath>$(OutDir)</PackageOutputPath>
+    <Company>Allscripts Healthcare Solutions, Inc.</Company>
+    <Copyright>Copyright (C) 2022 Allscripts Healthcare Solutions, Inc.</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\bin</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\bin</OutputPath>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Dapper.StrongName" Version="2.0.30" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConnectAndSell.DataAccessStandard.Common.DataContract\ConnectAndSell.DataAccessStandard.Common.DataContract.csproj" />
+    <ProjectReference Include="..\ConnectAndSell.DataAccessStandard.Server.Common\ConnectAndSell.DataAccessStandard.Server.Common.csproj" />
+  </ItemGroup>
+
+</Project>

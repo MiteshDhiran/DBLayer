@@ -1,0 +1,11 @@
+﻿<root>
+  <Table Name="SXARCMTransaction">
+    <Table Name="SXARCMChargeTransaction" FKName="SXARCMChargeTransactionSXARCMTransactionFK" ChildCollectionPropertyName="ChargeTransactions" ParentRefPropertyName="SXARCMTransaction">
+      <Table Name="SXARCMChargeDental" FKName="SXARCMChargeDentalSXARCMChargeTransactionFK" ChildCollectionPropertyName="DentalCharges" ParentRefPropertyName="SXARCMChargeTransaction"></Table>
+    </Table>
+    <Table Name="SXARCMRefundInfo" FKName="SXARCMRefundInfoSXARCMTransactionFK" ChildCollectionPropertyName="RefundTransactions" ParentRefPropertyName="SXARCMTransaction">
+    </Table>
+  </Table>
+  <Table Name="SXARCMWorksheet">
+  </Table>
+</root>

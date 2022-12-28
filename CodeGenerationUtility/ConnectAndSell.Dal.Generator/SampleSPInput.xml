@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<root>
+  <SP Name="SXARCMBillingPeriodForLateChargeBRSelPr">
+    <ResultSet ClassName="AutoTableFromSP" NameSpace=""/>
+    <ResultSet ClassName="ChildTableFromSP" NameSpace=""/>
+  </SP>
+  <SP Name="SXARCMBatchListingPr">
+    <ResultSet ClassName="BatchListing" NameSpace=""/>
+  </SP>
+</root>

@@ -1,0 +1,6 @@
+$url = "https://raw.githubusercontent.com/microsoft/artifacts-credprovider/master/helpers/installcredprovider.ps1"
+$output = "installcredprovider.ps1"
+Invoke-WebRequest -Uri $url -OutFile $output
+./installcredprovider.ps1
+
+dotnet tool install -g MDRX.Dal.Generator --add-source https://pkgs.dev.azure.com/MiteshDhiran/CoreDAL/_packaging/CoreDAL/nuget/v3/index.json --interactive

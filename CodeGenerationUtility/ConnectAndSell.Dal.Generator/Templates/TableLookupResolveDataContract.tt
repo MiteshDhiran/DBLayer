@@ -1,0 +1,31 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".txt" #>
+
+using System;
+using ConnectAndSell.DataAccessStandard.Common.DataContract;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+
+namespace <#=DataContextGeneratorParams.ProjectDataContractNameSpace#>
+{
+[DataContract(Namespace ="")]
+public sealed class <#=TableDataContractMetaInfo.TablePrimaryKeyLookupResolveClassName#> :IPrimaryKeyResolveBase<<#=TableDataContractMetaInfo.TablePrimaryKeyClassName#>,<#=TableDataContractMetaInfo.TableName#>>
+{
+[DataMember]
+public <#=TableDataContractMetaInfo.TablePrimaryKeyClassName#> PrimaryKeyRecordInfo { get; set;}
+<#=TableDataContractMetaInfo.TablePrimaryKeyLookupResolvePropertiesDefinitionText#>
+public <#=TableDataContractMetaInfo.TablePrimaryKeyLookupResolveClassName#>(<#=TableDataContractMetaInfo.TablePrimaryKeyClassName#> primaryKeyRecordInfo, <#=TableDataContractMetaInfo.TablePrimaryLookupPropertiesArgumentCommaSeparated#>)
+{
+	PrimaryKeyRecordInfo = primaryKeyRecordInfo ?? throw new ArgumentNullException($"{nameof(primaryKeyRecordInfo)}");
+	<#=TableDataContractMetaInfo.TablePrimaryKeyLookupResolvePropertiesAssignment#>
+}
+private <#=TableDataContractMetaInfo.TablePrimaryKeyLookupResolveClassName#>()
+{
+}
+public object GetPrimaryKeyRecordInfo() => PrimaryKeyRecordInfo;
+}
+}

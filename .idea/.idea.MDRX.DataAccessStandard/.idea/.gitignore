@@ -1,0 +1,29 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/modules.xml
+/.idea.MDRX.DataAccessStandard.iml
+/contentModel.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+/bin
+/obj
+*.csproj.user
+*.sln.docstates
+*.sln.ide
+*.sln.vspscc
+*.sln.vssscc
+*.suo
+*.user
+*.userosscache
+*.sln.dotsettings.user
+*.sln.dotsettings
+*.sln.dotsettings.user
+*.dll
+*.exe
+

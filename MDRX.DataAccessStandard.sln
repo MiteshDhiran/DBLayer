@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectAndSell.DataAccessStandard.Common.DataContract", "ConnectAndSell.DataAccessStandard.Common.DataContract\ConnectAndSell.DataAccessStandard.Common.DataContract.csproj", "{CF184165-CB38-442E-837A-A114D72F9F15}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectAndSell.DataAccessStandard.Server.Common", "ConnectAndSell.DataAccessStandard.Server.Common\ConnectAndSell.DataAccessStandard.Server.Common.csproj", "{EA4257F5-2D05-4522-8F77-EEA097B45088}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGenerationUtility", "CodeGenerationUtility", "{AFED3746-69C0-4B09-86AD-E9725344F054}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectAndSell.Dal.Generator", "CodeGenerationUtility\ConnectAndSell.Dal.Generator\ConnectAndSell.Dal.Generator.csproj", "{96A64236-9C3E-4E8E-972A-DE53F7B5E203}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectAndSell.Dal.Generator.Common", "CodeGenerationUtility\ConnectAndSell.Dal.Generator.Common\ConnectAndSell.Dal.Generator.Common.csproj", "{D92916C6-4856-4A82-8568-4321AD4246D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectAndSell.DataAccess.Repository.EFCore6", "ConnectAndSell.DataAccess.Repository.EFCore6\ConnectAndSell.DataAccess.Repository.EFCore6.csproj", "{940ADD90-BC13-4024-9C9A-D61B232E2042}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF184165-CB38-442E-837A-A114D72F9F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF184165-CB38-442E-837A-A114D72F9F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF184165-CB38-442E-837A-A114D72F9F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF184165-CB38-442E-837A-A114D72F9F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA4257F5-2D05-4522-8F77-EEA097B45088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA4257F5-2D05-4522-8F77-EEA097B45088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA4257F5-2D05-4522-8F77-EEA097B45088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA4257F5-2D05-4522-8F77-EEA097B45088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96A64236-9C3E-4E8E-972A-DE53F7B5E203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96A64236-9C3E-4E8E-972A-DE53F7B5E203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96A64236-9C3E-4E8E-972A-DE53F7B5E203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96A64236-9C3E-4E8E-972A-DE53F7B5E203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D92916C6-4856-4A82-8568-4321AD4246D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D92916C6-4856-4A82-8568-4321AD4246D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D92916C6-4856-4A82-8568-4321AD4246D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D92916C6-4856-4A82-8568-4321AD4246D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{940ADD90-BC13-4024-9C9A-D61B232E2042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{940ADD90-BC13-4024-9C9A-D61B232E2042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{940ADD90-BC13-4024-9C9A-D61B232E2042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{940ADD90-BC13-4024-9C9A-D61B232E2042}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{96A64236-9C3E-4E8E-972A-DE53F7B5E203} = {AFED3746-69C0-4B09-86AD-E9725344F054}
+		{D92916C6-4856-4A82-8568-4321AD4246D8} = {AFED3746-69C0-4B09-86AD-E9725344F054}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ADB09DB5-8F4B-4BB8-918F-CB6CD85A8F34}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://teamfoundationserver:8080/tfs/boc_projects
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MDRX.DataAccessStandard.Common.DataContract\\MDRX.DataAccessStandard.Common.DataContract.csproj
+		SccProjectName1 = MDRX.DataAccessStandard.Common.DataContract
+		SccLocalPath1 = MDRX.DataAccessStandard.Common.DataContract
+		SccProjectUniqueName2 = MDRX.DataAccessStandard.Server.Common\\MDRX.DataAccessStandard.Server.Common.csproj
+		SccProjectName2 = MDRX.DataAccessStandard.Server.Common
+		SccLocalPath2 = MDRX.DataAccessStandard.Server.Common
+		SccProjectUniqueName3 = CodeGenerationUtility\\MDRX.Dal.Generator\\MDRX.Dal.Generator.csproj
+		SccProjectTopLevelParentUniqueName3 = MDRX.DataAccessStandard.sln
+		SccProjectName3 = CodeGenerationUtility/MDRX.Dal.Generator
+		SccLocalPath3 = CodeGenerationUtility\\MDRX.Dal.Generator
+		SccProjectUniqueName4 = CodeGenerationUtility\\MDRX.Dal.Generator.Common\\MDRX.Dal.Generator.Common.csproj
+		SccProjectTopLevelParentUniqueName4 = MDRX.DataAccessStandard.sln
+		SccProjectName4 = CodeGenerationUtility/MDRX.Dal.Generator.Common
+		SccLocalPath4 = CodeGenerationUtility\\MDRX.Dal.Generator.Common
+		SccProjectUniqueName5 = MDRX.DataAccess.Repository.EFCore1\\MDRX.DataAccess.Repository.EFCore1.csproj
+		SccProjectName5 = MDRX.DataAccess.Repository.EFCore1
+		SccLocalPath5 = MDRX.DataAccess.Repository.EFCore1
+		SccProjectUniqueName6 = MDRX.DataAccess.Repository.EFCore6\\MDRX.DataAccess.Repository.EFCore6.csproj
+		SccProjectName6 = MDRX.DataAccess.Repository.EFCore6
+		SccLocalPath6 = MDRX.DataAccess.Repository.EFCore6
+	EndGlobalSection
+EndGlobal

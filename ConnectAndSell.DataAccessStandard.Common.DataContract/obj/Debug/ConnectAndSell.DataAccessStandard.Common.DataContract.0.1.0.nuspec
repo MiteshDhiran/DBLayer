@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ConnectAndSell.DataAccessStandard.Common.DataContract</id>
+    <version>0.1.0</version>
+    <authors>ConnectAndSell.DataAccessStandard.Common.DataContract</authors>
+    <description>Package Description</description>
+    <copyright>ConnectAndSell</copyright>
+    <dependencies>
+      <group targetFramework=".NETFramework4.8">
+        <dependency id="System.Text.Json" version="6.0.5" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Text.Json" version="6.0.5" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\repos\bin\net48\ConnectAndSell.DataAccessStandard.Common.DataContract.dll" target="lib\net48\ConnectAndSell.DataAccessStandard.Common.DataContract.dll" />
+    <file src="C:\repos\bin\netstandard2.0\ConnectAndSell.DataAccessStandard.Common.DataContract.dll" target="lib\netstandard2.0\ConnectAndSell.DataAccessStandard.Common.DataContract.dll" />
+  </files>
+</package>

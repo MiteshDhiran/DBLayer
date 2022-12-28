@@ -1,0 +1,8 @@
+C:\repos\bin\netstandard2.0\ConnectAndSell.DataAccessStandard.Common.DataContract.deps.json
+C:\repos\bin\netstandard2.0\ConnectAndSell.DataAccessStandard.Common.DataContract.dll
+C:\repos\bin\netstandard2.0\ConnectAndSell.DataAccessStandard.Common.DataContract.pdb
+C:\repos\dal\ConnectAndSell.DataAccessStandard.Common.DataContract\obj\Debug\netstandard2.0\ConnectAndSell.DataAccessStandard.Common.DataContract.csproj.AssemblyReference.cache
+C:\repos\dal\ConnectAndSell.DataAccessStandard.Common.DataContract\obj\Debug\netstandard2.0\ConnectAndSell.DataAccessStandard.Common.DataContract.GeneratedMSBuildEditorConfig.editorconfig
+C:\repos\dal\ConnectAndSell.DataAccessStandard.Common.DataContract\obj\Debug\netstandard2.0\ConnectAndSell.DataAccessStandard.Common.DataContract.csproj.CoreCompileInputs.cache
+C:\repos\dal\ConnectAndSell.DataAccessStandard.Common.DataContract\obj\Debug\netstandard2.0\ConnectAndSell.DataAccessStandard.Common.DataContract.dll
+C:\repos\dal\ConnectAndSell.DataAccessStandard.Common.DataContract\obj\Debug\netstandard2.0\ConnectAndSell.DataAccessStandard.Common.DataContract.pdb

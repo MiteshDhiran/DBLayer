@@ -1,0 +1,66 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".txt" #>
+
+
+using Microsoft.EntityFrameworkCore;
+using ConnectAndSell.DataAccessCore.Server.Common;
+<#=ProjectDataContractUsingStatement#><#=";"#>
+
+namespace <#=ProjectDataContextNameSpace#>
+{
+<#
+PushIndent("      ");
+#>
+public partial class <#=DataContextClassName#> : DbContext
+{
+<#
+PushIndent("      ");
+#>
+private static DbContextOptions<<#=DataContextClassName#>> GetOptions(SecureConnectionString secureConnectionString)
+{
+<#
+PushIndent("      ");
+#>
+var sqlConnection = new SqlConnection(secureConnectionString.ConnectionString);
+var optionsBuilder = new DbContextOptionsBuilder<<#=DataContextClassName#>>();
+optionsBuilder.EnableSensitiveDataLogging(true);
+optionsBuilder.UseSqlServer(sqlConnection);
+optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+return optionsBuilder.Options;
+<#
+PopIndent();
+#>
+}
+
+public <#=DataContextClassName#>(DbContextOptionsBuilder<<#=DataContextClassName#>> builder) : base(options: builder.Options)
+{
+}
+
+/*
+public <#=DataContextClassName#>(SecureConnectionString secureConnectionString) : base(GetOptions(secureConnectionString))
+{
+}
+*/
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+<#
+PushIndent("      ");
+#>
+<#=ModelBuilderConfigurationBody#>
+<#
+PopIndent();
+#>
+}
+<#
+PopIndent();
+#>
+}
+<#
+PopIndent();
+#>
+}

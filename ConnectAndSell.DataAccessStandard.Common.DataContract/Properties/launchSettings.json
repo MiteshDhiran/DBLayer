@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "MDRX.DataAccessStandard.Common.DataContract": {
+      "commandName": "Project"
+    }
+  }
+}

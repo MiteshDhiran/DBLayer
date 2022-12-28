@@ -1,0 +1,16 @@
+﻿<root>
+  <Table Name="AutoTable">
+    <Table Name="ChildTable" FKName="FK_ChildTable_AutoTable" ChildCollectionPropertyName="ChildTableList" ParentRefPropertyName="AutoTable">
+		  <Table Name="GrandChild" FKName="FK_GrandChild_ChildTable" ChildCollectionPropertyName="GrandChild" ParentRefPropertyName="ChildTable"/>
+    </Table>
+    <Table Name="SecondChildTable" FKName="FK_SecondChildTable_AutoTable" ChildCollectionPropertyName="SecondChildTable" ParentRefPropertyName="AutoTable"/>
+   </Table> 
+    <Table Name="ManualTable">
+  		<Table Name="ManualChildTable" FKName="FK_ManualChildTable_ManualTable" ChildCollectionPropertyName="ManualChildTable" ParentRefPropertyName="ManualTable">
+    </Table>
+  </Table>
+  <Table Name="TableWithMSRowVersion">
+  </Table>	
+  <Table Name="SXARCMWithSysGeneratedColumns">
+  </Table>
+</root>

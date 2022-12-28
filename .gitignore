@@ -1,0 +1,8 @@
+CodeGenerationUtility/ConnectAndSell.Dal.Generator/obj
+CodeGenerationUtility/ConnectAndSell.Dal.Generator/.idea
+CodeGenerationUtility/ConnectAndSell.Dal.Generator/obj
+CodeGenerationUtility/ConnectAndSell.Dal.Generator.Common/obj
+ConnectAndSell.DataAccess.Repository.EFCore1/obj
+ConnectAndSell.DataAccess.Repository.EFCore6/obj
+Test/TestPrecompiledModel/bin
+Test/TestPrecompiledModel/obj

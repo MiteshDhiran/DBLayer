@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="MDRX.DataAccessCore.Server.Common.ApplicationRepositoryBase">
+    <Position X="1.25" Y="1.25" Width="5" />
+    <TypeIdentifier>
+      <HashCode>AJCAAAQAAABAAAIABIAAAAAAAAAAQAAAAAAAAAAAABA=</HashCode>
+      <FileName>ApplicationRepositoryBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MDRX.DataAccessCore.Server.Common.ApplicationRepository&lt;T&gt;">
+    <Position X="3" Y="5.25" Width="6.25" />
+    <TypeIdentifier>
+      <HashCode>gJCCAAQAAABAABIAAIAABACAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>ApplicationRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<root>
+  <SP Name="GetAutoTableSelPr">
+    <ResultSet ClassName="AutoTableFromSP" NameSpace="SFMStandardDataContract"/>
+  </SP>
+  <SP Name="GetAutoTableWithChildTableSelPr">
+    <ResultSet ClassName="AutoTableFromSP" NameSpace="SFMStandardDataContract"/>
+    <ResultSet ClassName="ChildTableSP" NameSpace="SFMStandardDataContract"/>
+  </SP>
+  
+</root>

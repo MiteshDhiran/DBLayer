@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ConnectAndSell.DataAccessStandard.Server.Common</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net48</TargetFrameworks>
+    <AssemblyName>ConnectAndSell.DataAccessStandard.Server.Common</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <version>0.1.0</version>
+    <PackageOutputPath>$(OutDir)</PackageOutputPath>
+    <Company>ConnectAndSell</Company>
+    <Copyright>ConnectAndSell</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\bin</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\bin</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ResilientDataAccess\ResilientUnitOfWork.cs" />
+  </ItemGroup>
+  <!--<ItemGroup>
+    <None Include="..\build\MDRX.DataAccessStandard.targets" Pack="True" PackagePath="build\$(AssemblyName).targets" />
+  </ItemGroup>-->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.0" />
+    <PackageReference Include="Polly" Version="7.1.1" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConnectAndSell.DataAccessStandard.Common.DataContract\ConnectAndSell.DataAccessStandard.Common.DataContract.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ResilientDataAccess\" />
+  </ItemGroup>
+
+</Project>
