@@ -3,6 +3,7 @@ using DemoApp.DataContract;
 using ConnectAndSell.DataAccessStandard.Common.DataContract;
 using ConnectAndSell.DataAccessStandard.Server.Common;
 using ConnectAndSell.EFCore6;
+using CastApp.DataContract;
 
 namespace TestPrecompiledModel
 {
@@ -123,5 +124,29 @@ namespace TestPrecompiledModel
             var doc = CastaseedDALHelper.GetJsonDocument(@"EXEC test_preview_list_load_sp", new List<DbParameter>());
             Console.WriteLine(doc.RootElement);
         }
+
+        [ResultType(typeof(caslist_merged_setting))]
+        [ResultType(typeof(category_counts_pivot))]
+        [ResultType(typeof(list_enriched))]
+        [Function(Name = "dbo.test_preview_list_load_sp")]
+        public static void test_preview_list_load_sp(
+            [Parameter(Name = "@commaseperatedListID", DbType = "varchar(100)")] string commaseperatedListID
+            ,[Parameter(Name = "@UserID", DbType = "int")] System.Nullable<int> userID
+            ,[Parameter(Name = "@isjsonoutput", DbType = "bit")] bool isjsonoutput)
+        {
+            System.Reflection.MethodInfo mInfo = (System.Reflection.MethodInfo)System.Reflection.MethodInfo.GetCurrentMethod();
+            if (mInfo == null)
+            {
+                throw new ArgumentNullException("");
+            }
+            // Call DAL Method and pass specific methodInfo and get ResultSet
+            var result = CastaseedDALHelper.ExecuteStoredProc(mInfo, commaseperatedListID, userID, isjsonoutput);
+            var settings  = result.GetResult<caslist_merged_setting>();
+            var counts = result.GetResult<category_counts_pivot>().FirstOrDefault();
+            var listEnriched = result.GetResult<list_enriched>();
+            Console.WriteLine(listEnriched.Count());
+        }
+
+        
     }
 }

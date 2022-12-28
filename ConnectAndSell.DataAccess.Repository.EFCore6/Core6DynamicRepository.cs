@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using ConnectAndSell.EFCore1;
 
 namespace ConnectAndSell.EFCore6
 {
@@ -506,6 +507,17 @@ namespace ConnectAndSell.EFCore6
         {
             var retValTuple = SaveRecordsInternal(DbContext,ModelMetaInfo,true,CurrentTraceInfo.UserName,DateTimeOffset.UtcNow,records);
             return retValTuple.Item1;
+        }
+
+        /// <summary>
+        /// Executes the stored proc.
+        /// </summary>
+        /// <param name="mInfo">The m information.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <returns></returns>
+        public override ResultSet ExecuteStoredProc(MethodInfo mInfo, params object[] arguments)
+        {
+            return DapperHelper.ExecuteStoredProc(Connection, Transaction, mInfo, arguments);
         }
     }
 }

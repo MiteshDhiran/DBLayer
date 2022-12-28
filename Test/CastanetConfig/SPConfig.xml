@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<root>
+  <SP Name="test_preview_list_load_sp">
+    <ResultSet ClassName="caslist_merged_setting" NameSpace="CastanetDataContract"/>
+    <ResultSet ClassName="category_counts_pivot" NameSpace="CastanetDataContract"/>
+    <ResultSet ClassName="list_enriched" NameSpace="CastanetDataContract"/>
+  </SP>
+</root>
