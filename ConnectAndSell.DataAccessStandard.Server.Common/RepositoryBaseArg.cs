@@ -13,7 +13,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         public SecureConnectionString SecuredConnectionString { get; }
 
         public Func<object> PrecompiledModelFunc { get; }
-        public MDRXTransactionToken TransactionToken { get; }
+        public EntityTransactionToken TransactionToken { get; }
 
         public RepositoryBaseArg(TraceInfo trace
         ,ORMContext ormContext
@@ -41,7 +41,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         public RepositoryBaseArg(TraceInfo trace
         ,ORMContext ormContext
         ,Action<Action> sqlRetryAction,
-        MDRXTransactionToken transactionToken
+        EntityTransactionToken transactionToken
         ,Func<object> precompiledModelFunc): this
                     (
                     trace:trace,
@@ -64,7 +64,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         ,ORMContext ormContext
         ,Action<Action> sqlRetryAction
         ,SecureConnectionString securedConnectionString
-        ,MDRXTransactionToken transactionToken
+        ,EntityTransactionToken transactionToken
         ,Func<object> precompiledModelFunc
         )
         {

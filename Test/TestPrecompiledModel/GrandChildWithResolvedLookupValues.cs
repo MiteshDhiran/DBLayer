@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace DemoApp.DataContract
 {
 [DataContract]
-public sealed class GrandChildWithResolvedLookupValues  : MDRXCoreEntityBase
+public sealed class GrandChildWithResolvedLookupValues  : CoreEntityBase
 {
 [DataMember]
  public int GrandchildID {get;set;}

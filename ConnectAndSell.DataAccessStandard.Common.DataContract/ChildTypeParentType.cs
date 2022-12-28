@@ -15,7 +15,7 @@ namespace ConnectAndSell.DataAccessStandard.Common.DataContract
         public string ParentTableName { get; }
         public string GrandParentTableName { get; }
         
-        public MDRXEntitySetPropertyInfo EntitySetPropertyInfo { get; }
+        public EntitySetPropertyInfo EntitySetPropertyInfo { get; }
 
         public string ChildTempTableNameWithParentName { get; }
         public string ParentTempTableNameWithParentName { get; }
@@ -23,7 +23,7 @@ namespace ConnectAndSell.DataAccessStandard.Common.DataContract
         
         public string JoinCondition { get; }
 
-        public ChildTypeParentType(Type childType, Type parentType,Type grandParentType , string childTableName, string parentTableName, string grandParentTableName, MDRXEntitySetPropertyInfo entitySetPropertyInfo)
+        public ChildTypeParentType(Type childType, Type parentType,Type grandParentType , string childTableName, string parentTableName, string grandParentTableName, EntitySetPropertyInfo entitySetPropertyInfo)
         {
             if(parentType != null && string.IsNullOrEmpty(parentTableName)) throw new ArgumentNullException($"{nameof(parentTableName)}");
             ChildType = childType ?? throw new ArgumentNullException($"{nameof(childType)}");

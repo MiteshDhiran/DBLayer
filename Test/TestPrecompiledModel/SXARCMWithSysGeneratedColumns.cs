@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace DemoApp.DataContract
 {
 [DataContract]
-public sealed class SXARCMWithSysGeneratedColumns  : MDRXCoreEntityBase,ICompositeRoot
+public sealed class SXARCMWithSysGeneratedColumns  : CoreEntityBase,ICompositeRoot
 {
 [DataMember]
  public int Build {get;set;}

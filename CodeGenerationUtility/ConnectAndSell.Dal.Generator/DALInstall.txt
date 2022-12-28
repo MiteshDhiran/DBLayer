@@ -3,4 +3,4 @@ $output = "installcredprovider.ps1"
 Invoke-WebRequest -Uri $url -OutFile $output
 ./installcredprovider.ps1
 
-dotnet tool install -g MDRX.Dal.Generator --add-source https://pkgs.dev.azure.com/MiteshDhiran/CoreDAL/_packaging/CoreDAL/nuget/v3/index.json --interactive
+dotnet tool install -g ConnectAndSell.Dal.Generator --add-source https://pkgs.dev.azure.com/MiteshDhiran/CoreDAL/_packaging/CoreDAL/nuget/v3/index.json --interactive

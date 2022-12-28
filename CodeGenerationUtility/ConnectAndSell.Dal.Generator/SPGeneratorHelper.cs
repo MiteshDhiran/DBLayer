@@ -127,7 +127,7 @@ namespace ConnectAndSell.Dal.Generator
             }
             var strArray = sp.SPName.Split('.');
             writer.AppendLine("\t\t" +
-                             $"public static MDRX.DataAccessCore.Server.Common.ResultSet {(object)strArray[strArray.Length - 1]} ({spGeneratorParamterInfo.MethodStringBuilder})");
+                             $"public static ConnectAndSell.DataAccessCore.Server.Common.ResultSet {(object)strArray[strArray.Length - 1]} ({spGeneratorParamterInfo.MethodStringBuilder})");
             return spGeneratorParamterInfo;
         }
         public static string TrimAtSynmbol(string literal)

@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace CastApp.DataContract
 {
 [DataContract]
-public sealed class caslist_merged_setting  : MDRXCoreEntityBase,ICompositeRoot
+public sealed class caslist_merged_setting  : CoreEntityBase,ICompositeRoot
 {
 [DataMember]
  public int ListID {get;set;}

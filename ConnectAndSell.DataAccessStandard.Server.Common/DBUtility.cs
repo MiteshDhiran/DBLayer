@@ -45,7 +45,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         {
             if (recordList == null || recordList.Any() == false) return;
             var type = recordList.First().GetType();
-            var dicBasedOnStatus = recordList.ToLookup(p => ((IMDRXCoreEntity) p).DataEntityState)
+            var dicBasedOnStatus = recordList.ToLookup(p => ((ICoreEntity) p).DataEntityState)
                 .ToDictionary(kv => kv.Key, kvg => kvg.ToList());
             if (dicBasedOnStatus.ContainsKey(DomainEntityState.New))
             {
@@ -76,7 +76,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
 
                 dicBasedOnStatus[DomainEntityState.Deleted].ForEach(p =>
                 {
-                    var delRecord = p as IMDRXCoreEntity;
+                    var delRecord = p as ICoreEntity;
                     if (delRecord != null)
                     {
                         DeleteWithChild(delRecord, model);
@@ -118,14 +118,14 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
             }
         }
 
-        private static void DeleteWithChild(IMDRXCoreEntity obj, ORMModelMetaInfo model)
+        private static void DeleteWithChild(ICoreEntity obj, ORMModelMetaInfo model)
         {
             obj.Delete();
             List<object> childs = obj.GetChildEntitySet(model);
             foreach (IList items in childs)
             {
-                var newItems = new List<IMDRXCoreEntity>();
-                foreach (IMDRXCoreEntity item in items)
+                var newItems = new List<ICoreEntity>();
+                foreach (ICoreEntity item in items)
                 {
                     //items which are new cannot be deleted from DB and hence need to be removed from in-memory child collection of parent class.
                     if (item.DataEntityState == DomainEntityState.New)
@@ -145,7 +145,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
             }
         }
 
-        private static void Delete(this IMDRXCoreEntity entity)
+        private static void Delete(this ICoreEntity entity)
         {
             if (entity.DataEntityState == DomainEntityState.New)
             {
@@ -178,7 +178,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <param name="entity">The entity.</param>
         /// <param name="modelMetaInfo">The model meta information.</param>
         /// <returns></returns>
-        public static List<object> GetChildEntitySet(this IMDRXCoreEntity entity, ORMModelMetaInfo modelMetaInfo)
+        public static List<object> GetChildEntitySet(this ICoreEntity entity, ORMModelMetaInfo modelMetaInfo)
         {
             var propertyInfoList = GetChildEntitySetProperties(entity.GetType(), modelMetaInfo);
             var retVal = propertyInfoList.Aggregate(new List<Object>(), (agg, property) =>
@@ -194,7 +194,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// </summary>
         /// <param name="record">The record.</param>
         /// <param name="model">The model.</param>
-        public static void MarkChildAsNewIfRecordIsNew(IMDRXCoreEntity record, ORMModelMetaInfo model)
+        public static void MarkChildAsNewIfRecordIsNew(ICoreEntity record, ORMModelMetaInfo model)
         {
             var heliosRecord = record;
             if (heliosRecord == null || heliosRecord.DataEntityState != DomainEntityState.New) return;
@@ -206,7 +206,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
                 {
                     foreach (var childRecord in entitySetValue)
                     {
-                        var objectStatusRecord = childRecord as IMDRXCoreEntity;
+                        var objectStatusRecord = childRecord as ICoreEntity;
                         if (objectStatusRecord != null && objectStatusRecord.DataEntityState != DomainEntityState.New)
                         {
                             objectStatusRecord.DataEntityState = DomainEntityState.New;
@@ -232,9 +232,9 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         {
             if (records == null || records.Any() == false) return;
             SetSystemDateInSystemDefinedColumn(
-                new List<MDRXSystemDefinedColumn>() {MDRXSystemDefinedColumn.TouchedWhenUTC}, model,
+                new List<SystemDefinedColumn>() {SystemDefinedColumn.TouchedWhenUTC}, model,
                 records, dateTime);
-            SetUserInSystemDefinedColumn(new List<MDRXSystemDefinedColumn>() {MDRXSystemDefinedColumn.TouchedBy},
+            SetUserInSystemDefinedColumn(new List<SystemDefinedColumn>() {SystemDefinedColumn.TouchedBy},
                 model, records, userName);
         }
 
@@ -249,11 +249,11 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         {
             if (records == null || records.Any() == false) return;
             SetSystemDateInSystemDefinedColumn(
-                new List<MDRXSystemDefinedColumn>()
-                    {MDRXSystemDefinedColumn.CreatedWhenUTC, MDRXSystemDefinedColumn.TouchedWhenUTC},
+                new List<SystemDefinedColumn>()
+                    {SystemDefinedColumn.CreatedWhenUTC, SystemDefinedColumn.TouchedWhenUTC},
                 model, records, dateTime);
             SetUserInSystemDefinedColumn(
-                new List<MDRXSystemDefinedColumn>() {MDRXSystemDefinedColumn.CreatedBy, MDRXSystemDefinedColumn.TouchedBy},
+                new List<SystemDefinedColumn>() {SystemDefinedColumn.CreatedBy, SystemDefinedColumn.TouchedBy},
                 model, records, userName);
         }
 
@@ -263,7 +263,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <param name="systemDefinedColumns"></param>
         /// <param name="records"></param>
         /// <param name="userName"></param>
-        private static void SetUserInSystemDefinedColumn(List<MDRXSystemDefinedColumn> systemDefinedColumns,
+        private static void SetUserInSystemDefinedColumn(List<SystemDefinedColumn> systemDefinedColumns,
             ORMModelMetaInfo model, List<object> records, string userName)
         {
             if (systemDefinedColumns == null || records == null || records.Any() == false) return;
@@ -286,7 +286,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <param name="systemDefinedColumns"></param>
         /// <param name="records"></param>
         /// <param name="dateTime"></param>
-        private static void SetSystemDateInSystemDefinedColumn(List<MDRXSystemDefinedColumn> systemDefinedColumns,
+        private static void SetSystemDateInSystemDefinedColumn(List<SystemDefinedColumn> systemDefinedColumns,
             ORMModelMetaInfo modelMetaInfo, List<object> records, DateTimeOffset dateTime)
         {
             if (systemDefinedColumns == null || records == null || records.Any() == false) return;
@@ -307,9 +307,9 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// Function to get system defined property infos
         /// </summary>
         private static readonly
-            Func<Tuple<ORMModelMetaInfo, Type>, Dictionary<MDRXSystemDefinedColumn, PropertyInfo>>
+            Func<Tuple<ORMModelMetaInfo, Type>, Dictionary<SystemDefinedColumn, PropertyInfo>>
             GetAutogeneratedPropertyInfoDic =
-                Memonize<Tuple<ORMModelMetaInfo, Type>, Dictionary<MDRXSystemDefinedColumn, PropertyInfo>>(
+                Memonize<Tuple<ORMModelMetaInfo, Type>, Dictionary<SystemDefinedColumn, PropertyInfo>>(
                     (func, tuple) =>
                     {
                         var propertiesAndColumnAttributesDic = tuple.Item2
@@ -321,7 +321,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
                             {
                                 PropertyInfo ret;
                                 propertiesAndColumnAttributesDic.TryGetValue(p.Value, out ret);
-                                return new Tuple<MDRXSystemDefinedColumn, PropertyInfo>(p.Key, ret);
+                                return new Tuple<SystemDefinedColumn, PropertyInfo>(p.Key, ret);
                             }).Where(t => t.Item2 != null).ToLookup(kv => kv.Item1)
                             .ToDictionary(kv => kv.Key, kvg => kvg.First().Item2);
                     });
@@ -835,7 +835,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
             List<object> objectList = new List<object>();
             for (int tableIndex = 0; tableIndex < dataSet.Tables.Count; ++tableIndex)
             {
-                Tuple<int, PropertyInfo, MDRXColumnAttribute>[] propAttrInfo = null;
+                Tuple<int, PropertyInfo, EntityColumnAttribute>[] propAttrInfo = null;
                 Type recordType;
                 if (types.Count == 1)
                 {
@@ -865,24 +865,24 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
             return new ResultSet(objectList, cmd);
         }
 
-        private static readonly Func<Type, Tuple<int, PropertyInfo, MDRXColumnAttribute>[]> GetAllPropertiesAndAttributes
-            = Memonize<Type, Tuple<int, PropertyInfo, MDRXColumnAttribute>[]>(
+        private static readonly Func<Type, Tuple<int, PropertyInfo, EntityColumnAttribute>[]> GetAllPropertiesAndAttributes
+            = Memonize<Type, Tuple<int, PropertyInfo, EntityColumnAttribute>[]>(
                 (func, type) =>
                 {
                     PropertyInfo[] propertyInfos =
                         type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-                    List<Tuple<int, PropertyInfo, MDRXColumnAttribute>> list =
-                        new List<Tuple<int, PropertyInfo, MDRXColumnAttribute>>();
+                    List<Tuple<int, PropertyInfo, EntityColumnAttribute>> list =
+                        new List<Tuple<int, PropertyInfo, EntityColumnAttribute>>();
                     int index = 0;
                     foreach (PropertyInfo propertyInfo in propertyInfos)
                     {
-                        MDRXColumnAttribute customAttribute =
-                            (MDRXColumnAttribute) Attribute.GetCustomAttribute((MemberInfo) propertyInfo,
-                                typeof(MDRXColumnAttribute), false);
+                        EntityColumnAttribute customAttribute =
+                            (EntityColumnAttribute) Attribute.GetCustomAttribute((MemberInfo) propertyInfo,
+                                typeof(EntityColumnAttribute), false);
                         if (customAttribute != null)
                         {
-                            list.Add(new Tuple<int, PropertyInfo, MDRXColumnAttribute>(index, propertyInfo,
+                            list.Add(new Tuple<int, PropertyInfo, EntityColumnAttribute>(index, propertyInfo,
                                 customAttribute));
                             index = index + 1;
                         }
@@ -891,10 +891,10 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
                     return list.OrderBy(i => i.Item1).ToArray();
                 });
 
-        private static Tuple<Type, Tuple<int, PropertyInfo, MDRXColumnAttribute>[]> GetTypeForTableData(List<Type> types,
+        private static Tuple<Type, Tuple<int, PropertyInfo, EntityColumnAttribute>[]> GetTypeForTableData(List<Type> types,
             DataSet ds, int tableIndex)
         {
-            Tuple<Type, Tuple<int, PropertyInfo, MDRXColumnAttribute>[]> retVal = null;
+            Tuple<Type, Tuple<int, PropertyInfo, EntityColumnAttribute>[]> retVal = null;
             if (ds.Tables[tableIndex].Columns.Count > 0)
             {
                 List<string> list = new List<string>();
@@ -903,13 +903,13 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
                 for (int index = 0; index < types.Count; ++index)
                 {
                     if (GetAllPropertiesAndAttributes(types[index])
-                        .Select(t => t.Item3).Where<MDRXColumnAttribute>((c => c != null))
-                        .Select((Func<MDRXColumnAttribute, string>) (c => c.Name))
+                        .Select(t => t.Item3).Where<EntityColumnAttribute>((c => c != null))
+                        .Select((Func<EntityColumnAttribute, string>) (c => c.Name))
                         .Intersect<string>((IEnumerable<string>) list).Count() == list.Count)
                     {
                         var type = types[index];
                         var propAttrInfo = GetAllPropertiesAndAttributes(types[index]);
-                        retVal = new Tuple<Type, Tuple<int, PropertyInfo, MDRXColumnAttribute>[]>(type, propAttrInfo);
+                        retVal = new Tuple<Type, Tuple<int, PropertyInfo, EntityColumnAttribute>[]>(type, propAttrInfo);
                         break;
                     }
                 }
@@ -918,7 +918,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
             return retVal;
         }
 
-        private static List<object> CreateObjectList(Tuple<int, PropertyInfo, MDRXColumnAttribute>[] props,
+        private static List<object> CreateObjectList(Tuple<int, PropertyInfo, EntityColumnAttribute>[] props,
             Type recordType, DataTable dataTable, string storedProcName)
         {
             List<object> list1 = new List<object>();
@@ -967,8 +967,8 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
             foreach (DataRow dataRow in (InternalDataCollectionBase) dataTable.Rows)
             {
                 object target = constructorInfo?.Invoke(null);// objectFactory();
-                if (target is IMDRXCoreEntity)
-                    ((IMDRXCoreEntity) target).Delete();
+                if (target is ICoreEntity)
+                    ((ICoreEntity) target).Delete();
                 for (int index = 0; index < count; ++index)
                 {
                     if (!(list2[index] == (PropertyInfo) null))
@@ -1054,8 +1054,8 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
                     }
                 }
 
-                if (target is IMDRXCoreEntity)
-                    ((IMDRXCoreEntity) target).DataEntityState = DomainEntityState.Unchanged;
+                if (target is ICoreEntity)
+                    ((ICoreEntity) target).DataEntityState = DomainEntityState.Unchanged;
                 list1.Add(target);
             }
 
@@ -1068,7 +1068,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         private static object syncLock = new object();
 
         private static List<PropertyInfo> MappedResultSetForDataSet(string storedProcName, DataTable dataTable,
-            Tuple<int, PropertyInfo, MDRXColumnAttribute>[] props)
+            Tuple<int, PropertyInfo, EntityColumnAttribute>[] props)
         {
             List<PropertyInfo> pInfo = (List<PropertyInfo>) null;
 
@@ -1108,7 +1108,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
                                 }
                                 else
                                 {
-                                    MDRXColumnAttribute columnAttribute =  props[index].Item3;
+                                    EntityColumnAttribute columnAttribute =  props[index].Item3;
                                     if (columnAttribute != null && !string.IsNullOrEmpty(columnAttribute.Name) &&
                                         columnNameInUpperCase.Equals(columnAttribute.Name.ToUpper()))
                                     {
@@ -1168,7 +1168,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <param name="propertyInfo">The property information.</param>
         /// <param name="propertyName">Name of the property.</param>
         /// <returns></returns>
-        public static string GetContextAttachedPropertyValue<T>(T record,PropertyInfo[] propertyInfo , string propertyName) where T : IMDRXCoreEntity
+        public static string GetContextAttachedPropertyValue<T>(T record,PropertyInfo[] propertyInfo , string propertyName) where T : ICoreEntity
          {
              string columnValue = string.Empty;
              if (string.IsNullOrEmpty(propertyName) == false)

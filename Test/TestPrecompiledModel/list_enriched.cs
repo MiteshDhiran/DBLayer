@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace CastApp.DataContract
 {
 [DataContract]
-public sealed class list_enriched  : MDRXCoreEntityBase,ICompositeRoot
+public sealed class list_enriched  : CoreEntityBase,ICompositeRoot
 {
 [DataMember]
  public int CID {get;set;}

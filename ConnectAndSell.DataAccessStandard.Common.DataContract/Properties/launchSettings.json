@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "MDRX.DataAccessStandard.Common.DataContract": {
+    "ConnectAndSell.DataAccessStandard.Common.DataContract": {
       "commandName": "Project"
     }
   }

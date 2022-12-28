@@ -5,7 +5,7 @@
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
-    <RootNamespace>MDRX.DataAccess.Repository.EFCore1</RootNamespace>
+    <RootNamespace>ConnectAndSell.DataAccess.Repository.EFCore1</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -35,9 +35,9 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
 
         protected bool UsingExistingTransaction { get; }
 
-        protected MDRXTransactionToken GetNewTransactionToken()
+        protected EntityTransactionToken GetNewTransactionToken()
         {
-            return new MDRXTransactionToken(CurrentTraceInfo,Connection,Transaction);
+            return new EntityTransactionToken(CurrentTraceInfo,Connection,Transaction);
         }
         
         protected RepositoryProviderBase(RepositoryBaseArg arg)
@@ -181,7 +181,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <typeparam name="T"></typeparam>
         /// <param name="records">The records.</param>
         /// <returns></returns>
-        public abstract bool SaveRecords<T>(List<T> records) where T : IMDRXCoreEntity;
+        public abstract bool SaveRecords<T>(List<T> records) where T : ICoreEntity;
 
         /// <summary>
         /// Saves the records with change tracking data.
@@ -189,7 +189,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <typeparam name="TK">The type of the k.</typeparam>
         /// <param name="records">The records.</param>
         /// <returns></returns>
-        public abstract Dictionary<object, List<ChangeTrackingInfo>> SaveRecordsWithChangeTrackingData<TK>(List<TK> records) where TK : IMDRXCoreEntity;
+        public abstract Dictionary<object, List<ChangeTrackingInfo>> SaveRecordsWithChangeTrackingData<TK>(List<TK> records) where TK : ICoreEntity;
 
         protected virtual SqlTransaction GetNewTransaction()
         {
@@ -233,7 +233,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <typeparam name="T"></typeparam>
         /// <param name="funcUnderUnitOfWork">The function under unit of work.</param>
         /// <returns></returns>
-        public T DoDistributedUnitOfWork<T>(Func<MDRXTransactionToken, IRepositoryProvider, T> funcUnderUnitOfWork)
+        public T DoDistributedUnitOfWork<T>(Func<EntityTransactionToken, IRepositoryProvider, T> funcUnderUnitOfWork)
         {
             try
             {
@@ -299,7 +299,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <typeparam name="TK">The type of the k.</typeparam>
         /// <param name="records">The records.</param>
         /// <returns></returns>
-        public virtual bool BulkInsert<TK>(List<TK> records) where TK: IMDRXCoreEntity 
+        public virtual bool BulkInsert<TK>(List<TK> records) where TK: ICoreEntity 
         {
             var retVal = DBBulkInsertUtility.BulkInsert(CurrentTraceInfo, Connection, Transaction, ModelMetaInfo,false, records);
             return retVal.Item2;
@@ -311,7 +311,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <typeparam name="TK">The type of the k.</typeparam>
         /// <param name="records">The records.</param>
         /// <returns></returns>
-        public virtual Dictionary<object, List<ChangeTrackingInfo>> BulkInsertWithChangeTracking<TK>(List<TK> records) where TK : IMDRXCoreEntity
+        public virtual Dictionary<object, List<ChangeTrackingInfo>> BulkInsertWithChangeTracking<TK>(List<TK> records) where TK : ICoreEntity
         {
             var retVal =  DBBulkInsertUtility.BulkInsert(CurrentTraceInfo, Connection, Transaction, ModelMetaInfo,true, records);
             return retVal.Item1;
@@ -327,7 +327,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <param name="includeChildRecords">if set to <c>true</c> [include child records].</param>
         /// <returns></returns>
         public abstract List<TO> DoExecuteCommandFetchSelectedColumns<TK,TO>(Expression<Func<TK, bool>> exp,
-            Expression<Func<TK, TO>> mappingExp, bool includeChildRecords) where TK: class, IMDRXCoreEntity;
+            Expression<Func<TK, TO>> mappingExp, bool includeChildRecords) where TK: class, ICoreEntity;
 
         /// <summary>
         /// Deletes the by key values.

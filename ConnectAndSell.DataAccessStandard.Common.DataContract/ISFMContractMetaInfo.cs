@@ -11,7 +11,7 @@ namespace ConnectAndSell.DataAccessStandard.Common.DataContract
         List<string> GetAllChildPaths(string tableName);
         List<string> GetImmediateChildPropertyNames(string tableName);
 
-        ConcurrentDictionary<MDRXSystemDefinedColumn, string> GetSystemDefinedColumnTypeNameDictionary();
+        ConcurrentDictionary<SystemDefinedColumn, string> GetSystemDefinedColumnTypeNameDictionary();
 
         TypeAuditConfiguration GetAuditConfigurationOfType(string typeName);
 

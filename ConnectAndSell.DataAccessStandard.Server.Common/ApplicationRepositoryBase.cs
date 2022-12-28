@@ -50,10 +50,10 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         bool IsRecordExists<TK>(Expression<Func<TK, bool>> exp) where TK : class;
 
         List<TO> DoExecuteCommandFetchSelectedColumns<TK, TO>(Expression<Func<TK, bool>> exp,
-            Expression<Func<TK, TO>> mappingExp, bool includeChildRecords) where TK : class, IMDRXCoreEntity;
+            Expression<Func<TK, TO>> mappingExp, bool includeChildRecords) where TK : class, ICoreEntity;
 
         Task<List<TO>> DoExecuteCommandFetchSelectedColumnsAsync<TK, TO>(Expression<Func<TK, bool>> exp,
-            Expression<Func<TK, TO>> mappingExp, bool includeChildRecords) where TK : class, IMDRXCoreEntity;
+            Expression<Func<TK, TO>> mappingExp, bool includeChildRecords) where TK : class, ICoreEntity;
 
         List<TK> DoExecuteCommand<TK>(Expression<Func<TK, bool>> exp, bool getChildRecords) where TK : class;
 
@@ -69,23 +69,23 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
 
         ResultSet ExecuteStoredProc(MethodInfo mInfo, params object[] arguments);
         Task<ResultSet> ExecuteStoredProcAsync(MethodInfo mInfo, params object[] arguments);
-        bool BulkInsert<TK>(List<TK> records) where TK : IMDRXCoreEntity;
-        Task<bool> BulkInsertAsync<TK>(List<TK> records) where TK : IMDRXCoreEntity;
+        bool BulkInsert<TK>(List<TK> records) where TK : ICoreEntity;
+        Task<bool> BulkInsertAsync<TK>(List<TK> records) where TK : ICoreEntity;
 
         Dictionary<object, List<ChangeTrackingInfo>> BulkInsertWithChangeTrackingData<TK>(
-            List<TK> records) where TK : IMDRXCoreEntity;
+            List<TK> records) where TK : ICoreEntity;
 
         Task<Dictionary<object, List<ChangeTrackingInfo>>>
-            BulkInsertWithChangeTrackingDataAsync<TK>(List<TK> records) where TK : IMDRXCoreEntity;
+            BulkInsertWithChangeTrackingDataAsync<TK>(List<TK> records) where TK : ICoreEntity;
 
-        bool SaveRecords<TK>(List<TK> records) where TK : IMDRXCoreEntity;
-        Task<bool> SaveRecordsAsync<TK>(List<TK> records) where TK : IMDRXCoreEntity;
+        bool SaveRecords<TK>(List<TK> records) where TK : ICoreEntity;
+        Task<bool> SaveRecordsAsync<TK>(List<TK> records) where TK : ICoreEntity;
 
         Dictionary<object, List<ChangeTrackingInfo>>
-            SaveRecordsWithChangeTrackingData<TK>(List<TK> records) where TK : IMDRXCoreEntity;
+            SaveRecordsWithChangeTrackingData<TK>(List<TK> records) where TK : ICoreEntity;
 
         Task<Dictionary<object, List<ChangeTrackingInfo>>>
-            SaveRecordsWithChangeTrackingDataAsync<TK>(List<TK> records) where TK : IMDRXCoreEntity;
+            SaveRecordsWithChangeTrackingDataAsync<TK>(List<TK> records) where TK : ICoreEntity;
 
         TK DoUnitOfWork<TK>(Func<TK> funcUnderUnitOfWork);
         Task<TK> DoUnitOfWorkAsync<TK>(Func<TK> funcUnderUnitOfWork);
@@ -143,7 +143,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         private static ConcurrentDictionary<IApplicationRepositoryBase, IRepositoryProvider>
             CurrentRepositoryDictionary;
 
-        [ThreadStatic] private static MDRXTransactionToken CurrentTransactionToken;
+        [ThreadStatic] private static EntityTransactionToken CurrentTransactionToken;
         
         private readonly Action<Action> SQLRetryAction;
 
@@ -361,11 +361,11 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         }
 
         public List<TO> DoExecuteCommandFetchSelectedColumns<TK, TO>(Expression<Func<TK, bool>> exp,
-            Expression<Func<TK, TO>> mappingExp, bool includeChildRecords) where TK : class, IMDRXCoreEntity
+            Expression<Func<TK, TO>> mappingExp, bool includeChildRecords) where TK : class, ICoreEntity
             => DoExecuteCommandFetchSelectedColumnsInternal(GetNewTraceInfo(), exp, mappingExp, includeChildRecords);
 
         public async Task<List<TO>> DoExecuteCommandFetchSelectedColumnsAsync<TK, TO>(Expression<Func<TK, bool>> exp,
-            Expression<Func<TK, TO>> mappingExp, bool includeChildRecords) where TK : class, IMDRXCoreEntity
+            Expression<Func<TK, TO>> mappingExp, bool includeChildRecords) where TK : class, ICoreEntity
         {
             var traceInfo = ValidateIfAsyncActionCanBePerformedAndGetNewTraceInfo();
             return await Task.Run(() =>
@@ -423,7 +423,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         
         private List<TO> DoExecuteCommandFetchSelectedColumnsInternal<TK, TO>(TraceInfo traceInfo,
             Expression<Func<TK, bool>> exp, Expression<Func<TK, TO>> mappingExp, bool includeChildRecords)
-            where TK : class, IMDRXCoreEntity
+            where TK : class, ICoreEntity
         {
             return ExecuteFuncWithRetry(() =>
             {
@@ -471,12 +471,12 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
             });
         }
 
-        private List<TK> DoExecuteCommandInternal<TK>(TraceInfo mdrxTraceInfo, Expression<Func<TK, bool>> exp,
+        private List<TK> DoExecuteCommandInternal<TK>(TraceInfo traceInfo, Expression<Func<TK, bool>> exp,
             List<string> childTableNames) where TK : class
         {
             return ExecuteFuncWithRetry(() =>
             {
-                using (var repositoryWithDisposableFlag = GetRepository(mdrxTraceInfo))
+                using (var repositoryWithDisposableFlag = GetRepository(traceInfo))
                 {
                     return repositoryWithDisposableFlag.RepositoryProvider.DoExecuteCommand<TK>(exp, childTableNames);
                 }
@@ -560,17 +560,17 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
             });
         }
 
-        public bool BulkInsert<TK>(List<TK> records) where TK : IMDRXCoreEntity =>
+        public bool BulkInsert<TK>(List<TK> records) where TK : ICoreEntity =>
             BulkInsertInternal(GetNewTraceInfo(), records);
 
 
-        public async Task<bool> BulkInsertAsync<TK>(List<TK> records) where TK : IMDRXCoreEntity
+        public async Task<bool> BulkInsertAsync<TK>(List<TK> records) where TK : ICoreEntity
         {
             var traceInfo = ValidateIfAsyncActionCanBePerformedAndGetNewTraceInfo();
             return await Task.Run(() => BulkInsertInternal(traceInfo, records));
         }
 
-        private bool BulkInsertInternal<TK>(TraceInfo traceInfo, List<TK> records) where TK : IMDRXCoreEntity =>
+        private bool BulkInsertInternal<TK>(TraceInfo traceInfo, List<TK> records) where TK : ICoreEntity =>
             DoUnitOfWork(() =>
             {
                 using (var repo = GetRepository(traceInfo))
@@ -581,11 +581,11 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
 
 
         public Dictionary<object, List<ChangeTrackingInfo>> BulkInsertWithChangeTrackingData<TK>(
-            List<TK> records) where TK : IMDRXCoreEntity =>
+            List<TK> records) where TK : ICoreEntity =>
             BulkInsertWithChangeTrackingDataInternal(GetNewTraceInfo(), records);
 
         public async Task<Dictionary<object, List<ChangeTrackingInfo>>>
-            BulkInsertWithChangeTrackingDataAsync<TK>(List<TK> records) where TK : IMDRXCoreEntity
+            BulkInsertWithChangeTrackingDataAsync<TK>(List<TK> records) where TK : ICoreEntity
         {
             var traceInfo = ValidateIfAsyncActionCanBePerformedAndGetNewTraceInfo();
             return await Task.Run(() => BulkInsertWithChangeTrackingDataInternal(traceInfo, records));
@@ -593,7 +593,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
 
         private Dictionary<object, List<ChangeTrackingInfo>> BulkInsertWithChangeTrackingDataInternal<TK>(
             TraceInfo traceInfo, List<TK> records)
-            where TK : IMDRXCoreEntity =>
+            where TK : ICoreEntity =>
             DoUnitOfWork(() =>
             {
                 using (var repo = GetRepository(traceInfo))
@@ -603,16 +603,16 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
             });
 
 
-        public bool SaveRecords<TK>(List<TK> records) where TK : IMDRXCoreEntity =>
+        public bool SaveRecords<TK>(List<TK> records) where TK : ICoreEntity =>
             SaveRecordsInternal(GetNewTraceInfo(), records);
 
-        public async Task<bool> SaveRecordsAsync<TK>(List<TK> records) where TK : IMDRXCoreEntity
+        public async Task<bool> SaveRecordsAsync<TK>(List<TK> records) where TK : ICoreEntity
         {
             var traceInfo = ValidateIfAsyncActionCanBePerformedAndGetNewTraceInfo();
             return await Task.Run(() => SaveRecordsInternal(traceInfo, records));
         }
 
-        private bool SaveRecordsInternal<TK>(TraceInfo traceInfo, List<TK> records) where TK : IMDRXCoreEntity =>
+        private bool SaveRecordsInternal<TK>(TraceInfo traceInfo, List<TK> records) where TK : ICoreEntity =>
             this.DoUnitOfWork(() =>
                 {
                     using (var repo = GetRepository(traceInfo))
@@ -624,11 +624,11 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
 
 
         public Dictionary<object, List<ChangeTrackingInfo>>
-            SaveRecordsWithChangeTrackingData<TK>(List<TK> records) where TK : IMDRXCoreEntity =>
+            SaveRecordsWithChangeTrackingData<TK>(List<TK> records) where TK : ICoreEntity =>
             SaveRecordsWithChangeTrackingDataInternal(GetNewTraceInfo(), records);
 
         public async Task<Dictionary<object, List<ChangeTrackingInfo>>>
-            SaveRecordsWithChangeTrackingDataAsync<TK>(List<TK> records) where TK : IMDRXCoreEntity
+            SaveRecordsWithChangeTrackingDataAsync<TK>(List<TK> records) where TK : ICoreEntity
         {
             var traceInfo = ValidateIfAsyncActionCanBePerformedAndGetNewTraceInfo();
             return await Task.Run(() => SaveRecordsWithChangeTrackingDataInternal(traceInfo, records));
@@ -637,7 +637,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
 
         private Dictionary<object, List<ChangeTrackingInfo>>
             SaveRecordsWithChangeTrackingDataInternal<TK>(TraceInfo traceInfo, List<TK> records)
-            where TK : IMDRXCoreEntity =>
+            where TK : ICoreEntity =>
             this.DoUnitOfWork(() =>
             {
                 using (var repo = GetRepository(traceInfo))

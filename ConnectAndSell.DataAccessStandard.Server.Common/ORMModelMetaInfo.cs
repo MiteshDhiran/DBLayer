@@ -65,11 +65,11 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <summary>
         /// The get all table column properties
         /// </summary>
-        public readonly Func<Type, List<MDRXColumnInfo>> GetAllTableColumnProperties;
+        public readonly Func<Type, List<EntityColumnInfo>> GetAllTableColumnProperties;
         /// <summary>
         /// The get all table entity set properties
         /// </summary>
-        public readonly Func<Type, List<MDRXEntitySetPropertyInfo>> GetAllTableEntitySetProperties;
+        public readonly Func<Type, List<EntitySetPropertyInfo>> GetAllTableEntitySetProperties;
         /// <summary>
         /// The get TSQL by XML for data contract
         /// </summary>
@@ -148,8 +148,8 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
 
             GetImmediateChildPropertyNames =
                 DBUtility.Memonize<Type, List<string>>((_, type) => GetImmediateChildPropertyNamesNonCached(type));
-            GetAllTableColumnProperties = DBUtility.Memonize<Type, List<MDRXColumnInfo>>((_, type) => GetAllTableColumnPropertiesNonCached(type));
-            GetAllTableEntitySetProperties = DBUtility.Memonize<Type, List<MDRXEntitySetPropertyInfo>>((_, type) => GetAllTableEntitySetPropertiesNonCached(type));
+            GetAllTableColumnProperties = DBUtility.Memonize<Type, List<EntityColumnInfo>>((_, type) => GetAllTableColumnPropertiesNonCached(type));
+            GetAllTableEntitySetProperties = DBUtility.Memonize<Type, List<EntitySetPropertyInfo>>((_, type) => GetAllTableEntitySetPropertiesNonCached(type));
             GetTSQLByXMLForDataContract = DBUtility.Memonize<Type, string>((_, type) => GetTSQLByXMLForDataContractNonCached(type));
             GetTSQLByJSONForDataContract = DBUtility.Memonize<Type, string>((_, type) => GetTSQLByJSONForDataContractNonCached(type));
             GetTSQLQueryForAssociateJSONResultSet = DBUtility.Memonize<Type, string>((_, type) => GetTSQLQueryForAssociateJSONResultSetNonCached(type));
@@ -391,12 +391,12 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
             return allChildEntitySetProperties.Select(p => p.Name).ToList();
         }
 
-        private static readonly ConcurrentDictionary<MDRXSystemDefinedColumn, string> SystemDefinedColumnTypeNameDictionary = new ConcurrentDictionary<MDRXSystemDefinedColumn, string>(
-                new Dictionary<MDRXSystemDefinedColumn, string>()
+        private static readonly ConcurrentDictionary<SystemDefinedColumn, string> SystemDefinedColumnTypeNameDictionary = new ConcurrentDictionary<SystemDefinedColumn, string>(
+                new Dictionary<SystemDefinedColumn, string>()
                 {
-                    {MDRXSystemDefinedColumn.CreatedBy, "CreatedBy"}, {MDRXSystemDefinedColumn.TouchedBy, "TouchedBy"},
-                    {MDRXSystemDefinedColumn.CreatedWhenUTC, "CreatedWhenUTC"},
-                    {MDRXSystemDefinedColumn.TouchedWhenUTC, "TouchedWhenUTC"}
+                    {SystemDefinedColumn.CreatedBy, "CreatedBy"}, {SystemDefinedColumn.TouchedBy, "TouchedBy"},
+                    {SystemDefinedColumn.CreatedWhenUTC, "CreatedWhenUTC"},
+                    {SystemDefinedColumn.TouchedWhenUTC, "TouchedWhenUTC"}
                 }
             );
 
@@ -404,14 +404,14 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// Gets the system defined column type name dictionary.
         /// </summary>
         /// <returns></returns>
-        public ConcurrentDictionary<MDRXSystemDefinedColumn, string> GetSystemDefinedColumnTypeNameDictionary() => SystemDefinedColumnTypeNameDictionary;
+        public ConcurrentDictionary<SystemDefinedColumn, string> GetSystemDefinedColumnTypeNameDictionary() => SystemDefinedColumnTypeNameDictionary;
 
-        private List<MDRXColumnInfo> GetAllTableColumnPropertiesNonCached(Type type)
+        private List<EntityColumnInfo> GetAllTableColumnPropertiesNonCached(Type type)
         {
             var tableName = GetTableNameByType(type);
             var tableType = TableNameTypeDic[tableName];
             var res = TableTypeMetaInfoDic[tableType].ColumnPropertiesWithTypeList.Select(c =>
-                new MDRXColumnInfo(c.ColumnPropertyMetaInfo.ColumnName, c.ColumnPropertyInfo, c.Name, c.PropertyType,
+                new EntityColumnInfo(c.ColumnPropertyMetaInfo.ColumnName, c.ColumnPropertyInfo, c.Name, c.PropertyType,
                     c.ColumnPropertyMetaInfo.SqlDataType, c.ColumnPropertyMetaInfo.IsGeneratedOnUpdate,
                     c.ColumnPropertyMetaInfo.IsGeneratedOnAdd, c.ColumnPropertyMetaInfo.IsPKColumn)).ToList();
             return res;
@@ -424,14 +424,14 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <param name="selectedColumns">The selected columns.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public List<MDRXColumnInfo> GetAllSelectedColumnPropertiesNonCached(Type type, List<PropertyInfo> selectedColumns)
+        public List<EntityColumnInfo> GetAllSelectedColumnPropertiesNonCached(Type type, List<PropertyInfo> selectedColumns)
         {
             if (selectedColumns == null || selectedColumns.Any() == false) 
                 throw new ArgumentNullException($"{nameof(selectedColumns)}");
             var tableName = GetTableNameByType(type);
             var tableType = TableNameTypeDic[tableName];
             var res = TableTypeMetaInfoDic[tableType].ColumnPropertiesWithTypeList.Where(field => (selectedColumns.Exists(s => s.Name == field.ColumnPropertyInfo.Name && s.ReflectedType.Name == tableName) || field.ColumnPropertyMetaInfo.IsPKColumn)).Select(c =>
-                    new MDRXColumnInfo(c.ColumnPropertyMetaInfo.ColumnName, c, c.Name, c.PropertyType,
+                    new EntityColumnInfo(c.ColumnPropertyMetaInfo.ColumnName, c, c.Name, c.PropertyType,
                         c.ColumnPropertyMetaInfo.SqlDataType, c.ColumnPropertyMetaInfo.IsGeneratedOnUpdate,
                         c.ColumnPropertyMetaInfo.IsGeneratedOnAdd, c.ColumnPropertyMetaInfo.IsPKColumn)).ToList();
             return res;
@@ -442,10 +442,10 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        public List<MDRXEntitySetPropertyInfo> GetAllTableEntitySetPropertiesNonCached(Type type)
+        public List<EntitySetPropertyInfo> GetAllTableEntitySetPropertiesNonCached(Type type)
         {
             var res = TableTypeMetaInfoDic[type].ChildPropertyMetaInfoWithTypeList.Select(
-                    n => new MDRXEntitySetPropertyInfo(n.ChildEntitySetPropertyInfo
+                    n => new EntitySetPropertyInfo(n.ChildEntitySetPropertyInfo
                         , n.ChildEntitySetPropertyInfo.Name
                         , GetTableContractInfoByClassFullName(n.ChildPropertyMetaInfo.ChildClassFullName).TableTypeClassInfo
                         , GetTableContractInfoByClassFullName(n.ChildPropertyMetaInfo.ChildClassFullName).TableDataContractMetaInfo.TableName
@@ -605,15 +605,15 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
 
         private string GetUDTTableTypeName(string tableName) => $"{tableName}AppDtTbl";
 
-        private List<Tuple<string, IColumnNetInfo, MDRXColumnInfo>> GetTableTypeColumnAndContractMappingNonCached(Type tableDataContractType)
+        private List<Tuple<string, IColumnNetInfo, EntityColumnInfo>> GetTableTypeColumnAndContractMappingNonCached(Type tableDataContractType)
         {
 
             var tableDataType = GetUDTTableTypeName(TableTypeMetaInfoDic[tableDataContractType].TableDataContractMetaInfo.TableName);
             var columnProperties = GetAllTableColumnProperties(tableDataContractType);
             var list = columnProperties.Select((c) =>
-                new Tuple<string, IColumnNetInfo, MDRXColumnInfo>(c.ColumnName, c.PropertyInfo, c)).ToList();
-            list.Add(new Tuple<string, IColumnNetInfo, MDRXColumnInfo>("RID", null, null));
-            list.Add(new Tuple<string, IColumnNetInfo, MDRXColumnInfo>("PRID", null, null));
+                new Tuple<string, IColumnNetInfo, EntityColumnInfo>(c.ColumnName, c.PropertyInfo, c)).ToList();
+            list.Add(new Tuple<string, IColumnNetInfo, EntityColumnInfo>("RID", null, null));
+            list.Add(new Tuple<string, IColumnNetInfo, EntityColumnInfo>("PRID", null, null));
             return list;
         }
 
@@ -1007,7 +1007,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
             DBUtility.Memonize<Tuple<Type, ORMModelMetaInfo>, string>(
                 (_, tuple) =>
                 {
-                    QueryInfo GetTSQLSelectLocal(Type rootType,MDRXEntitySetPropertyInfo entitySetPropertyInfo,  ORMModelMetaInfo modelMetaInfolocal, QueryInfo queryInfo)
+                    QueryInfo GetTSQLSelectLocal(Type rootType,EntitySetPropertyInfo entitySetPropertyInfo,  ORMModelMetaInfo modelMetaInfolocal, QueryInfo queryInfo)
                     {
                         if (entitySetPropertyInfo != null)
                         {

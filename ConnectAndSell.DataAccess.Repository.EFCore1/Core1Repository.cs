@@ -215,7 +215,7 @@ namespace ConnectAndSell.DataAccess.Repository.EFCore1
             return retValTuple.Item1;
         }
          
-        private static Tuple<Dictionary<object, List<ChangeTrackingInfo>>,bool> SaveRecordsInternal<T>(DbContext dbContext,ORMModelMetaInfo model,bool isAuditingRequired, string currentUser,DateTimeOffset currentDateTimeOffset, List<T> recordList) where T: IMDRXCoreEntity
+        private static Tuple<Dictionary<object, List<ChangeTrackingInfo>>,bool> SaveRecordsInternal<T>(DbContext dbContext,ORMModelMetaInfo model,bool isAuditingRequired, string currentUser,DateTimeOffset currentDateTimeOffset, List<T> recordList) where T: ICoreEntity
         {
             var trackingDictionary = new Dictionary<object, List<ChangeTrackingInfo>>();
             if (recordList == null || recordList.Any() == false) return new Tuple<Dictionary<object, List<ChangeTrackingInfo>>, bool>(trackingDictionary,true);
@@ -296,10 +296,10 @@ namespace ConnectAndSell.DataAccess.Repository.EFCore1
 
             //mark all records as unchanged
 
-            var listToBeMarkedUnchanged = tuple.Item1.SelectMany(o => o.Value.Select(z => (IMDRXCoreEntity) z))
-                .Union(tuple.Item2.SelectMany(o => o.Value.Select(z => (IMDRXCoreEntity) z)))
-                .Union(tuple.Item3.SelectMany(o => o.Value.Select(z => (IMDRXCoreEntity) z)))
-                .Union(tuple.Item4.SelectMany(o => o.Value.Select(z => (IMDRXCoreEntity) z))).ToList();
+            var listToBeMarkedUnchanged = tuple.Item1.SelectMany(o => o.Value.Select(z => (ICoreEntity) z))
+                .Union(tuple.Item2.SelectMany(o => o.Value.Select(z => (ICoreEntity) z)))
+                .Union(tuple.Item3.SelectMany(o => o.Value.Select(z => (ICoreEntity) z)))
+                .Union(tuple.Item4.SelectMany(o => o.Value.Select(z => (ICoreEntity) z))).ToList();
 
             foreach (var item in listToBeMarkedUnchanged)
             {

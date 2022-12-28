@@ -55,14 +55,14 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         
         ResultSet ExecuteStoredProc(MethodInfo mInfo, params object[] arguments);
 
-        bool SaveRecords<T>(List<T> records) where T : IMDRXCoreEntity;
+        bool SaveRecords<T>(List<T> records) where T : ICoreEntity;
 
         Dictionary<object, List<ChangeTrackingInfo>> SaveRecordsWithChangeTrackingData<TK>(List<TK> records)
-            where TK : IMDRXCoreEntity;
+            where TK : ICoreEntity;
 
         T DoUnitOfWork<T>(Func<IRepositoryProvider,T> funcUnderUnitOfWork);
 
-        T DoDistributedUnitOfWork<T>(Func<MDRXTransactionToken,IRepositoryProvider, T> funcUnderUnitOfWork);
+        T DoDistributedUnitOfWork<T>(Func<EntityTransactionToken,IRepositoryProvider, T> funcUnderUnitOfWork);
 
         List<TK> GetRecordsByTSQLWhereClause<TK>(string parameterizedWhereClause,
             List<DbParameter> parameters, string joinClause = "") where TK: class;
@@ -72,13 +72,13 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
 
         List<TK> GetRecordsByKeyValues<TK, TP>(List<TP> primaryKeyValues);
         
-        bool BulkInsert<T>(List<T> records) where T : IMDRXCoreEntity;
+        bool BulkInsert<T>(List<T> records) where T : ICoreEntity;
 
         Dictionary<object, List<ChangeTrackingInfo>> BulkInsertWithChangeTracking<TK>(List<TK> records)
-            where TK : IMDRXCoreEntity;
+            where TK : ICoreEntity;
 
         List<TO> DoExecuteCommandFetchSelectedColumns<TK, TO>(Expression<Func<TK, bool>> exp,
-            Expression<Func<TK, TO>> mappingExp, bool includeChildRecords) where TK: class, IMDRXCoreEntity;
+            Expression<Func<TK, TO>> mappingExp, bool includeChildRecords) where TK: class, ICoreEntity;
 
         bool DeleteByKeyValues<TK, TP>(List<TP> primaryKeyValues);
 

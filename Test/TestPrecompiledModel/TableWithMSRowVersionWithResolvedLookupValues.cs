@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace DemoApp.DataContract
 {
 [DataContract]
-public sealed class TableWithMSRowVersionWithResolvedLookupValues  : MDRXCoreEntityBase
+public sealed class TableWithMSRowVersionWithResolvedLookupValues  : CoreEntityBase
 {
 [DataMember]
  public int Id {get;set;}

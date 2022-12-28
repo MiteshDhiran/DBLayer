@@ -18,7 +18,7 @@ namespace ConnectAndSell.DataAccessStandard.Common.DataContract
         /// <param name="convertFromDataContractToDataTableTypeFunc"></param>
         /// <param name="syncRequired"></param>
         /// <param name="isPrimaryKey"></param>
-        public SQLTableTypeColumnInfo(int columnPosition,string columnName, IColumnNetInfo propertyInfo, MDRXColumnInfo columnInfo, bool isAllowedForInsert, Type dataTableType, Func<object, object> convertFromDataContractToDataTableTypeFunc, bool syncRequired,bool isPrimaryKey)
+        public SQLTableTypeColumnInfo(int columnPosition,string columnName, IColumnNetInfo propertyInfo, EntityColumnInfo columnInfo, bool isAllowedForInsert, Type dataTableType, Func<object, object> convertFromDataContractToDataTableTypeFunc, bool syncRequired,bool isPrimaryKey)
         {
             ColumnPosition = columnPosition;
             if (propertyInfo != null)
@@ -58,7 +58,7 @@ namespace ConnectAndSell.DataAccessStandard.Common.DataContract
         /// <summary>
         /// ColumnAttribute associated with column property
         /// </summary>
-        public MDRXColumnInfo ColumnInfo { get; private set; }
+        public EntityColumnInfo ColumnInfo { get; private set; }
         /// <summary>
         /// True for the columns whose value can be passed from client. For e.g. Identity column and MSRowversion column will have false value
         /// </summary>

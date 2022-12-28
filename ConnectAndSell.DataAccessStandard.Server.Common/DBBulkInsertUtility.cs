@@ -108,7 +108,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <param name="typeHierarchyList"></param>
         /// <param name="insertTSQL"></param>
         /// <returns></returns>
-        private static bool InsertRecordsInBulkSingleDBCallInternal<T>(TraceInfo traceInfo, SqlConnection connection, SqlTransaction transaction, ORMModelMetaInfo metaModelInfo, List<T> records,List<Tuple<Type, Type>> typeHierarchyList, string insertTSQL) where T : IMDRXCoreEntity
+        private static bool InsertRecordsInBulkSingleDBCallInternal<T>(TraceInfo traceInfo, SqlConnection connection, SqlTransaction transaction, ORMModelMetaInfo metaModelInfo, List<T> records,List<Tuple<Type, Type>> typeHierarchyList, string insertTSQL) where T : ICoreEntity
         {
             //fill the data in data tables for each table
             var dataTableDic = FillRecordsInDataTable(metaModelInfo, records, traceInfo.UserName, null, null, null);
@@ -151,7 +151,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
             {
                  k.Value.Item2.ForEach(p =>
                  {
-                     if (p is IMDRXCoreEntity platformBase)
+                     if (p is ICoreEntity platformBase)
                      {
                          platformBase.DataEntityState = DomainEntityState.Unchanged;
                      }
@@ -195,7 +195,7 @@ namespace ConnectAndSell.DataAccessStandard.Server.Common
         /// <param name="records">The records.</param>
         /// <returns></returns>
         /// <exception cref="Exception">All records should have object status New for bulk insert API</exception>
-        public static Tuple<Dictionary<object, List<ChangeTrackingInfo>>,bool> BulkInsert<T>(TraceInfo traceInfo, SqlConnection connection, SqlTransaction transaction, ORMModelMetaInfo metaModelInfo,bool isChangeTrackingRequired, List<T> records) where T : IMDRXCoreEntity
+        public static Tuple<Dictionary<object, List<ChangeTrackingInfo>>,bool> BulkInsert<T>(TraceInfo traceInfo, SqlConnection connection, SqlTransaction transaction, ORMModelMetaInfo metaModelInfo,bool isChangeTrackingRequired, List<T> records) where T : ICoreEntity
         {
             Dictionary<object, List<ChangeTrackingInfo>> trackingDictionary = new Dictionary<object, List<ChangeTrackingInfo>>();
             if (records == null || records.Any() == false) return new Tuple<Dictionary<object, List<ChangeTrackingInfo>>, bool>(trackingDictionary, true);

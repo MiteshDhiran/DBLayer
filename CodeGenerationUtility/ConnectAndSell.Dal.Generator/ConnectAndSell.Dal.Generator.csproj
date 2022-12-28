@@ -16,7 +16,7 @@
     <OutputType>Exe</OutputType>
     <StartupObject />
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>MDRXDalGenerator</ToolCommandName>
+    <ToolCommandName>DalGenerator</ToolCommandName>
     <RootNamespace>ConnectAndSell.Dal.Generator</RootNamespace>
     <AssemblyName>ConnectAndSell.Dal.Generator</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

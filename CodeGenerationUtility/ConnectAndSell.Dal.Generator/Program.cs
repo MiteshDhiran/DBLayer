@@ -78,7 +78,7 @@ namespace ConnectAndSell.Dal.Generator
                         var dataContextClassFilePath = Path.Combine(dataContextPath, $"{dataContextName}.cs");
                         
                         var dataContextGeneratorParams = new DataContextGeneratorParams(dataContextName,
-                            $"{o.ProjectNameSpace}.Server", $"{o.ProjectNameSpace}.DataContract", "MDRXCoreEntityBase"
+                            $"{o.ProjectNameSpace}.Server", $"{o.ProjectNameSpace}.DataContract", "CoreEntityBase"
                             , dataContractPath, dataContextPath ,
                             tableConfigFile, o.ConnectionString,
                             spConfigFile,spWrapperPath, $"{o.ProjectName}DALHelper"

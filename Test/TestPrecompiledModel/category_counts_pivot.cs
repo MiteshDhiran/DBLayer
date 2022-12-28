@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace CastApp.DataContract
 {
 [DataContract]
-public sealed class category_counts_pivot  : MDRXCoreEntityBase,ICompositeRoot
+public sealed class category_counts_pivot  : CoreEntityBase,ICompositeRoot
 {
 [DataMember]
  public int Checkout {get;set;}
